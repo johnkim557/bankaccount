@@ -144,7 +144,7 @@ class Services():
    
 
 
-
+import pandas as pd
 #convert information into pandas dataframe apply efficient pythonic processes.
 
 #convert dataframe to csv or sql
