@@ -1,9 +1,5 @@
 #create empty array for objects
-customers =[]
-bankAccounts =[]
-employees = []
-services = []
-
+import psycopg2
 
 class Customer():
     #constructor
@@ -11,16 +7,16 @@ class Customer():
     #include paramaters such as first name, last name, address, balance
     #type of account
     #withdraw/deposit method
-  
+
     def __init__(self, first_name, last_name, address,balance=0):
         self.first_name = first_name
         self.last_name = last_name
         self.address = address
         self.balance = balance
         customers.append(self.__dict__)
-        
+
         #setter method
-        
+
         #input property decorators for setter
     def set_name(self):
         x = input('Input your first name: ')
@@ -29,13 +25,13 @@ class Customer():
         self.first_name = x
         self.last_name = y
         customers.append(self.__dict__)
-        
+
         #getter method
     def get_name(self):
         return self.first_name+ " "+ self.last_name
-    
+
 class BankAccount(Customer):
-    
+
     def __init__(self,balance=0):
         self.balance= balance
         Customer.__init__(self,first_name,last_name,address,balance=0)
@@ -43,7 +39,7 @@ class BankAccount(Customer):
         self.last_name = Customer.last_name
         self.address = Customer.address
         bankAccounts.append(self.__dict__)
-        
+
     def deposit(self):
         try:
             input_amount = input("Input an amount to deposit: ")
@@ -66,10 +62,10 @@ class BankAccount(Customer):
                 bankAccounts.append(self.__dict__)
         except ValueError:
             ("You provided an invalid amount")
-            
+
 class Employees():
-     #first name, last name, employee id, department, salary, job status, 
-    
+     #first name, last name, employee id, department, salary, job status,
+
     def __init__(self, name, employee_id, department, salary, hire_date):
         self.name = name
         self.employee_id = employee_id
@@ -82,8 +78,8 @@ class Employees():
         self.salary += raise_amount
         print("Updated Employee Salary: ",self.salary)
         employees.append(self.__dict__)
-    
-    
+
+
 class Services():
 
     def __init__(self, name, address, birth_date, social_security,credit_card=None,loan=None,credit_balance=0):
@@ -107,17 +103,17 @@ class Services():
     #setter method
     def select_credit_card(self):
         x = input("SELECT Credit Card Option (Sapphire,Freedom,or Black)")
-        
-        if x == 'Saphire':
-            print("Congratulations you are now have a $2,500 credit line!")
+
+        if x == 'Sapphire':
+            print("Congratulations you now have a $2,500 credit line!")
             self.credit_balance = 2500
             services.append(self.__dict__)
         elif x == 'Freedom':
-            print("Congratulations you are now have a $3,500 credit line!")
+            print("Congratulations you now have a $3,500 credit line!")
             self.credit_balance = 3500
             services.append(self.__dict__)
         elif x == 'Black':
-            print("Congratulations you are now have a $10,000 credit line!")
+            print("Congratulations you now have a $10,000 credit line!")
             self.credit_balance = 10000
             services.append(self.__dict__)
     def pay_with_credit(self,input_amount):
@@ -125,37 +121,24 @@ class Services():
         services.append(self.__dict__)
 
 
-    def pay_off_credit(self,input_amount):  
+    def pay_off_credit(self,input_amount):
         if input_amount > self.credit_balance:
             print("The inputted amount is greater than your current credit balance. Please try again.")
 
-        else: 
+        else:
             self.credit_balance -= input_amount
             services.append(self.__dict__)
 
 
-    
+
     def raise_credit_limit(self, amount):
         print("Congratulations you have been permitted to receive a increase in your credit limit")
         self.credit_balance += amount
 
 
-    
-   
+c = Customer('John','Kim','41 Bullens Ave')
+print(c.get_name())
+
 
 
 import pandas as pd
-#convert information into pandas dataframe apply efficient pythonic processes.
-
-#convert dataframe to csv or sql
-df_cust = pd.DataFrame(customers)
-df_bankAcc = pd.DataFrame(bankAccounts)
-df_emp = pd.DataFrame(employees)
-df_services = pd.DataFrame(services)
-
-
-df_cust.to_csv('customers.csv',index = False)
-df_bankAcc.to_csv('BankAccounts.csv', index = False)
-df_emp.to_csv('employees.csv',index = False)
-df_services.to_csv('services.csv',index = False)
-
